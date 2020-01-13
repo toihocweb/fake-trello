@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 
 import CardContent from "@material-ui/core/CardContent";
-
+import { Draggable } from "react-beautiful-dnd";
 import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles({
   card: {
@@ -16,17 +16,27 @@ const useStyles = makeStyles({
     }
   }
 });
-const TrelloCard = ({ task }) => {
+const TrelloCard = ({ task, taskId, index }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {task.des}
-        </Typography>
-      </CardContent>
-    </Card>
+    <Draggable draggableId={String(taskId)} index={index}>
+      {provided => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {task.des}
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
