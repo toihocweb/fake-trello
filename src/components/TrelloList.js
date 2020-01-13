@@ -4,32 +4,16 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { CardActions, Button, Card, Icon } from "@material-ui/core";
 import TrelloButton from "./common/TrelloButton";
-const useStyles = makeStyles({
-  list: {
-    maxWidth: 345,
-    transition: "all 0.4s",
-    marginRight: 20,
-    padding: 20,
-    backgroundColor: "#ebecf0",
-    height: "100%"
-  }
-});
 
-const TrelloList = () => {
-  const classes = useStyles();
-
+const TrelloList = ({ list }) => {
   return (
-    <Card className={classes.list}>
+    <>
       <Typography gutterBottom variant="h6" component="h2">
-        Lizard
+        {list.title}
       </Typography>
-      <TrelloCard />
-      <TrelloCard />
-      <TrelloCard />
-      <TrelloCard />
-      <TrelloCard />
-      <TrelloButton />
-    </Card>
+      {list.tasks &&
+        list.tasks.map(task => <TrelloCard task={task} key={task._id} />)}
+    </>
   );
 };
 

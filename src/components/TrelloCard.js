@@ -16,15 +16,14 @@ const useStyles = makeStyles({
     }
   }
 });
-const TrelloCard = () => {
+const TrelloCard = ({ task }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {task.des}
         </Typography>
       </CardContent>
     </Card>

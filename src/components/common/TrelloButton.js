@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Icon } from "@material-ui/core";
 import Textarea from "react-textarea-autosize";
-import { height } from "@material-ui/system";
 
 const TrelloButton = ({ list }) => {
   const [formOpen, setformOpen] = useState(false);
