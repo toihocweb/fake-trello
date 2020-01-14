@@ -2,9 +2,10 @@ import React from "react";
 import { Typography, Card } from "@material-ui/core";
 import TrelloList from "./TrelloList";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TrelloButton from "./common/TrelloButton";
 import { DragDropContext } from "react-beautiful-dnd";
+import { sort } from "../actions/listAction";
 
 const useStyles = makeStyles({
   wrapper: {
@@ -23,11 +24,25 @@ const useStyles = makeStyles({
   }
 });
 
-const onDragEnd = () => {};
-
 const TrelloCardWrapper = () => {
   const listTasks = useSelector(state => state.listReducer);
-  console.log(listTasks);
+  const dispatch = useDispatch();
+  const onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    console.log(destination);
+    if (!destination) {
+      return;
+    }
+    dispatch(
+      sort(
+        source.droppableId,
+        destination.droppableId,
+        source.index,
+        destination.index,
+        draggableId
+      )
+    );
+  };
   const classes = useStyles();
 
   return (
