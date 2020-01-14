@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import TrelloButton from "./common/TrelloButton";
 import { DragDropContext } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   wrapper: {
@@ -23,12 +24,17 @@ const useStyles = makeStyles({
   }
 });
 
-const onDragEnd = () => {};
-
 const TrelloCardWrapper = () => {
   const listTasks = useSelector(state => state.listReducer);
-  console.log(listTasks);
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

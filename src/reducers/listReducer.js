@@ -1,4 +1,4 @@
-import { GET_LIST, ADD_LIST, ADD_TASK } from "../actions/types";
+import { GET_LIST, ADD_LIST, ADD_TASK, DRAG_HAPPENED } from "../actions/types";
 import uuid from "uuid/v4";
 const initialState = [
   {
@@ -102,6 +102,15 @@ export default function(state = initialState, action) {
         };
         return [...state.slice(0, idx), newTasks, ...state.slice(idx + 1)];
       }
+      return state;
+    case DRAG_HAPPENED:
+      const {
+        droppableIdStart,
+        droppableIdSEnd,
+        droppableIndexEnd,
+        droppableIndexStart,
+        draggableId
+      } = action.payload;
     default:
       return state;
   }
